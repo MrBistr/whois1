@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,16 @@
 <body>
     <div id="app">
         <h1>Social Map</h1>
-        <div id="canvas"></div>
+        <button id="create-account-btn">Create Account</button>
+        
+        <!-- Form to input name and job title -->
+        <div id="form-container" class="hidden">
+            <input type="text" id="name-input" placeholder="Enter your name" />
+            <input type="text" id="job-title-input" placeholder="Enter your job title" />
+            <button id="submit-btn">Submit</button>
+        </div>
+
+        <div id="accounts-container"></div>
     </div>
     <script src="js/script.js"></script>
 </body>
