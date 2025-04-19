@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const node = document.createElement('div');
         node.classList.add('node');
-        node.style.top = isFirstNode ? '50%' : `${Math.random() * 80}vh`;
-        node.style.left = isFirstNode ? '50%' : `${Math.random() * 80}vw`;
+        node.style.top = isFirstNode ? '50%' : `${Math.random() * 90}vh`;
+        node.style.left = isFirstNode ? '50%' : `${Math.random() * 90}vw`;
         if (isFirstNode) node.style.transform = 'translate(-50%, -50%)';
 
         if (file) {
