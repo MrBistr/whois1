@@ -6,10 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Array of random images for account avatars
     const randomImages = [
-        '../img/avatar1.jpg',
-        '../img/avatar2.jpg',
-        '../img/avatar3.jpg',
-        '../img/avatar4.jpg'
+        '../img/avatar1.jpg'
     ];
 
     // Function to create a new account
