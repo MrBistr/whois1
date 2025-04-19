@@ -6,6 +6,7 @@ body {
     background-size: cover;
     background-position: center;
     color: #ffffff;
+    overflow: hidden;
 }
 
 #app {
@@ -53,6 +54,12 @@ h1, p, ol {
     justify-content: center;
     position: absolute;
     text-align: center;
+    animation: flow 5s infinite alternate;
+}
+
+@keyframes flow {
+    0% { transform: translate(5px, 5px); }
+    100% { transform: translate(-5px, -5px); }
 }
 
 .node img {
