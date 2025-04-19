@@ -1,38 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const instructionWindow = document.getElementById('instruction-window');
-    const modal = document.getElementById('modal');
-    const closeModalButton = document.getElementById('close-modal');
     const nameInput = document.getElementById('name-input');
     const jobTitleInput = document.getElementById('job-title-input');
     const imageUpload = document.getElementById('image-upload');
-    const confirmBtn = document.getElementById('confirm-btn');
+    const addNodeBtn = document.getElementById('add-node-btn');
     const nodesContainer = document.getElementById('nodes-container');
     const nodes = [];
     let isFirstNode = true;
 
-    // Hide instruction window on click anywhere
-    document.body.addEventListener('click', () => {
-        if (instructionWindow) {
-            instructionWindow.remove();
-        }
-        modal.classList.remove('hidden');
-    });
-
-    // Close modal on close button or clicking outside
-    closeModalButton.addEventListener('click', () => closeModal());
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
-
-    function closeModal() {
-        modal.classList.add('hidden');
-        nameInput.value = '';
-        jobTitleInput.value = '';
-        imageUpload.value = '';
-    }
-
-    // Confirm and create a node
-    confirmBtn.addEventListener('click', () => {
+    // Add a new node on button click
+    addNodeBtn.addEventListener('click', () => {
         const name = nameInput.value.trim();
         const jobTitle = jobTitleInput.value.trim();
         const file = imageUpload.files[0];
@@ -66,7 +42,33 @@ document.addEventListener('DOMContentLoaded', () => {
         nodesContainer.appendChild(node);
         nodes.push(node);
 
+        // Reset inputs
+        nameInput.value = '';
+        jobTitleInput.value = '';
+        imageUpload.value = '';
+
         isFirstNode = false;
-        closeModal();
+
+        // Add drag-and-drop functionality to the node
+        addDragAndDrop(node);
     });
+
+    function addDragAndDrop(node) {
+        node.draggable = true;
+
+        node.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('nodeId', nodes.indexOf(node));
+        });
+
+        node.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const fromId = e.dataTransfer.getData('nodeId');
+            const fromNode = nodes[fromId];
+            const line = new LeaderLine(fromNode, node, { color: 'blue', size: 2 });
+        });
+
+        node.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+    }
 });

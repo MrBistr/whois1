@@ -8,41 +8,22 @@
 </head>
 <body>
     <div id="app">
-        <!-- Instruction Window -->
-        <div id="instruction-window" class="instruction-container">
-            <h1>Welcome to Your Network</h1>
-            <p>Follow these steps:</p>
-            <ol>
-                <li>Create yourself as the central node.</li>
-                <li>Add colleagues as separate nodes.</li>
-                <li>Connect nodes to build your network.</li>
-            </ol>
-            <p>Click anywhere to start!</p>
-        </div>
-
         <!-- Nodes Container -->
         <div id="nodes-container"></div>
-    </div>
 
-    <!-- Modal for creating nodes -->
-    <div id="modal" class="hidden">
-        <div class="modal-content">
-            <button id="close-modal" class="close-button">X</button>
-            <div class="modal-left">
-                <p>Fill out the form to create a new profile bubble with a name, job title, and optional image.</p>
-            </div>
-            <div class="modal-right">
-                <label for="name-input">Name:</label>
-                <input type="text" id="name-input" placeholder="Enter name" />
-                
-                <label for="job-title-input">Job Title:</label>
-                <input type="text" id="job-title-input" placeholder="Enter job title" />
-                
-                <label for="image-upload">Upload Image:</label>
-                <input type="file" id="image-upload" accept="image/*" />
-                
-                <button id="confirm-btn">OK</button>
-            </div>
+        <!-- Embedded Input Form -->
+        <div id="input-form">
+            <h2>Add a Node</h2>
+            <label for="name-input">Name:</label>
+            <input type="text" id="name-input" placeholder="Enter name" />
+
+            <label for="job-title-input">Job Title:</label>
+            <input type="text" id="job-title-input" placeholder="Enter job title" />
+
+            <label for="image-upload">Upload Image:</label>
+            <input type="file" id="image-upload" accept="image/*" />
+            
+            <button id="add-node-btn">Add Node</button>
         </div>
     </div>
 
