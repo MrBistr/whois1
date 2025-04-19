@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const instructionWindow = document.getElementById('instruction-window');
     const modal = document.getElementById('modal');
     const nameInput = document.getElementById('name-input');
     const jobTitleInput = document.getElementById('job-title-input');
@@ -7,23 +6,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmBtn = document.getElementById('confirm-btn');
     const cancelBtn = document.getElementById('cancel-btn');
     const nodesContainer = document.getElementById('nodes-container');
-    const nodes = [];
-    let isFirstNode = true;
 
-    // Hide instruction window on click anywhere
-    document.body.addEventListener('click', () => {
-        if (instructionWindow) {
-            instructionWindow.remove();
+    // Show modal when clicking anywhere on the screen
+    document.body.addEventListener('click', (e) => {
+        if (!modal.contains(e.target)) {
+            modal.classList.remove('hidden');
         }
-        modal.classList.remove('hidden');
     });
 
-    // Close modal on cancel or clicking outside
+    // Close modal on cancel or clicking outside the modal
     cancelBtn.addEventListener('click', () => closeModal());
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
 
+    // Close modal function
     function closeModal() {
         modal.classList.add('hidden');
         nameInput.value = '';
@@ -44,9 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const node = document.createElement('div');
         node.classList.add('node');
-        node.style.top = isFirstNode ? '50%' : `${Math.random() * 80}vh`;
-        node.style.left = isFirstNode ? '50%' : `${Math.random() * 80}vw`;
-        if (isFirstNode) node.style.transform = 'translate(-50%, -50%)';
+        node.style.top = `${Math.random() * 80}vh`;
+        node.style.left = `${Math.random() * 80}vw`;
 
         if (file) {
             const reader = new FileReader();
@@ -64,26 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         node.appendChild(textContainer);
         nodesContainer.appendChild(node);
-        nodes.push(node);
 
-        isFirstNode = false;
         closeModal();
-
-        // Add drag and drop functionality
-        addDragAndDrop(node);
     });
-
-    function addDragAndDrop(node) {
-        node.draggable = true;
-        node.addEventListener('dragstart', (e) => {
-            e.dataTransfer.setData('nodeId', nodes.indexOf(node));
-        });
-        node.addEventListener('drop', (e) => {
-            e.preventDefault();
-            const fromId = e.dataTransfer.getData('nodeId');
-            const fromNode = nodes[fromId];
-            const line = new LeaderLine(fromNode, node, { color: 'blue', size: 2 });
-        });
-        node.addEventListener('dragover', (e) => e.preventDefault());
-    }
 });

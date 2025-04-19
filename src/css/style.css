@@ -6,33 +6,23 @@ body {
     background-size: cover;
     background-position: center;
     color: #ffffff;
+    cursor: pointer;
 }
 
 #app {
     width: 100%;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    overflow: hidden;
 }
 
-h1, p, ol {
-    margin: 0;
-    padding: 0;
-}
-
-.instruction-container {
-    background: rgba(255, 255, 255, 0.9);
-    color: #333;
-    width: 300px;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
+h1 {
+    font-size: 3rem;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px;
 }
 
 #nodes-container {
@@ -55,7 +45,6 @@ h1, p, ol {
     cursor: grab;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease-in-out;
 }
 
 .node img {
@@ -67,10 +56,9 @@ h1, p, ol {
 
 .node .text-container {
     margin-top: 5px;
-    text-align: center;
-    font-size: 0.8rem;
 }
 
+/* Modal styling */
 #modal {
     position: fixed;
     top: 0;
@@ -106,6 +94,8 @@ h1, p, ol {
     align-items: center;
     justify-content: center;
     text-align: center;
+    font-size: 0.9rem;
+    color: #333;
 }
 
 .modal-right {
