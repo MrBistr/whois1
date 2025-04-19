@@ -1,80 +1,66 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Social Map App started');
-
     const modal = document.getElementById('modal');
     const nameInput = document.getElementById('name-input');
     const jobTitleInput = document.getElementById('job-title-input');
     const imageUpload = document.getElementById('image-upload');
-    const imageDescription = document.getElementById('image-description');
-    const imagePreview = document.getElementById('image-preview');
-    const generateImageBtn = document.getElementById('generate-image-btn');
     const confirmBtn = document.getElementById('confirm-btn');
-    const accountsContainer = document.getElementById('accounts-container');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const nodesContainer = document.getElementById('nodes-container');
 
     // Show modal when clicking anywhere on the screen
-    document.body.addEventListener('click', () => {
-        modal.classList.remove('hidden');
-    });
-
-    // Generate placeholder image (placeholder for actual text-to-image generator logic)
-    generateImageBtn.addEventListener('click', () => {
-        const description = imageDescription.value.trim();
-        if (description) {
-            // Placeholder: Replace with actual text-to-image generator API
-            alert(`Generating image for: "${description}"`);
-            imagePreview.src = 'img/placeholder.jpg'; // Placeholder image
+    document.body.addEventListener('click', (e) => {
+        if (!modal.contains(e.target)) {
+            modal.classList.remove('hidden');
         }
     });
 
-    // Update image preview when uploading a file
-    imageUpload.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                imagePreview.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
+    // Close modal on cancel or clicking outside the modal
+    cancelBtn.addEventListener('click', () => closeModal());
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
     });
 
-    // Confirm button logic
+    // Close modal function
+    function closeModal() {
+        modal.classList.add('hidden');
+        nameInput.value = '';
+        jobTitleInput.value = '';
+        imageUpload.value = '';
+    }
+
+    // Confirm and create a node
     confirmBtn.addEventListener('click', () => {
         const name = nameInput.value.trim();
         const jobTitle = jobTitleInput.value.trim();
-        const imageSrc = imagePreview.src;
+        const file = imageUpload.files[0];
 
         if (!name || !jobTitle) {
             alert('Please fill in both name and job title!');
             return;
         }
 
-        // Create account node
-        const account = document.createElement('div');
-        account.classList.add('account');
+        const node = document.createElement('div');
+        node.classList.add('node');
+        node.style.top = `${Math.random() * 80}vh`;
+        node.style.left = `${Math.random() * 80}vw`;
 
-        const img = document.createElement('img');
-        img.src = imageSrc;
-        account.appendChild(img);
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                node.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        }
 
         const textContainer = document.createElement('div');
         textContainer.classList.add('text-container');
+        textContainer.innerHTML = `<strong>${name}</strong><br>${jobTitle}`;
 
-        const nameElement = document.createElement('h2');
-        nameElement.textContent = name;
-        textContainer.appendChild(nameElement);
+        node.appendChild(textContainer);
+        nodesContainer.appendChild(node);
 
-        const jobTitleElement = document.createElement('p');
-        jobTitleElement.textContent = jobTitle;
-        textContainer.appendChild(jobTitleElement);
-
-        account.appendChild(textContainer);
-        accountsContainer.appendChild(account);
-
-        // Reset modal fields
-        nameInput.value = '';
-        jobTitleInput.value = '';
-        imagePreview.src = 'img/placeholder.jpg';
-        modal.classList.add('hidden');
+        closeModal();
     });
 });
