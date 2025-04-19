@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const instructionWindow = document.getElementById('instruction-window');
     const modal = document.getElementById('modal');
+    const closeModalButton = document.getElementById('close-modal');
     const nameInput = document.getElementById('name-input');
     const jobTitleInput = document.getElementById('job-title-input');
     const imageUpload = document.getElementById('image-upload');
     const confirmBtn = document.getElementById('confirm-btn');
-    const cancelBtn = document.getElementById('cancel-btn');
     const nodesContainer = document.getElementById('nodes-container');
     const nodes = [];
     let isFirstNode = true;
@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.remove('hidden');
     });
 
-    // Close modal on cancel or clicking outside
-    cancelBtn.addEventListener('click', () => closeModal());
+    // Close modal on close button or clicking outside
+    closeModalButton.addEventListener('click', () => closeModal());
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
@@ -68,22 +68,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
         isFirstNode = false;
         closeModal();
-
-        // Add drag and drop functionality
-        addDragAndDrop(node);
     });
-
-    function addDragAndDrop(node) {
-        node.draggable = true;
-        node.addEventListener('dragstart', (e) => {
-            e.dataTransfer.setData('nodeId', nodes.indexOf(node));
-        });
-        node.addEventListener('drop', (e) => {
-            e.preventDefault();
-            const fromId = e.dataTransfer.getData('nodeId');
-            const fromNode = nodes[fromId];
-            const line = new LeaderLine(fromNode, node, { color: 'blue', size: 2 });
-        });
-        node.addEventListener('dragover', (e) => e.preventDefault());
-    }
 });
