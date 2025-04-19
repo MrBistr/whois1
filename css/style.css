@@ -1,0 +1,39 @@
+/* General styling for the body */
+body {
+    font-family: Arial, sans-serif; /* Sets the font family */
+    margin: 0;
+    padding: 0;
+    background-image: url('../img/background.jpg'); /* Adds a background image */
+    background-size: cover; /* Ensures the image covers the whole background */
+    background-position: center; /* Centers the image */
+    color: #ffffff; /* Sets the default text color to white */
+}
+
+/* Center the app content */
+#app {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5); /* Adds a semi-transparent black background */
+    padding: 20px;
+    border-radius: 10px; /* Rounds the corners */
+}
+
+/* Headline styling */
+h1 {
+    font-size: 3rem; /* Makes the headline larger */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Adds a shadow to the text */
+    margin-bottom: 20px;
+}
+
+/* Styling for the canvas container */
+#canvas {
+    width: 80%;
+    height: 60vh;
+    border: 2px solid #ffffff; /* Adds a white border */
+    background: rgba(255, 255, 255, 0.2); /* Adds a semi-transparent white background */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Adds a shadow around the canvas */
+}
