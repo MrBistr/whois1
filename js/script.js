@@ -1,41 +1,62 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Social Map App started');
 
-    const createAccountBtn = document.getElementById('create-account-btn');
-    const formContainer = document.getElementById('form-container');
-    const submitBtn = document.getElementById('submit-btn');
+    const modal = document.getElementById('modal');
     const nameInput = document.getElementById('name-input');
     const jobTitleInput = document.getElementById('job-title-input');
+    const imageUpload = document.getElementById('image-upload');
+    const imageDescription = document.getElementById('image-description');
+    const imagePreview = document.getElementById('image-preview');
+    const generateImageBtn = document.getElementById('generate-image-btn');
+    const confirmBtn = document.getElementById('confirm-btn');
     const accountsContainer = document.getElementById('accounts-container');
 
-    // Avatar image (you can add more options)
-    const avatarImage = '../img/avatar1.jpg';
-
-    // Show the form when "Create Account" is clicked
-    createAccountBtn.addEventListener('click', () => {
-        formContainer.classList.remove('hidden');
+    // Show modal when clicking anywhere on the screen
+    document.body.addEventListener('click', () => {
+        modal.classList.remove('hidden');
     });
 
-    // Handle form submission
-    submitBtn.addEventListener('click', () => {
+    // Generate placeholder image (placeholder for actual text-to-image generator logic)
+    generateImageBtn.addEventListener('click', () => {
+        const description = imageDescription.value.trim();
+        if (description) {
+            // Placeholder: Replace with actual text-to-image generator API
+            alert(`Generating image for: "${description}"`);
+            imagePreview.src = 'img/placeholder.jpg'; // Placeholder image
+        }
+    });
+
+    // Update image preview when uploading a file
+    imageUpload.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Confirm button logic
+    confirmBtn.addEventListener('click', () => {
         const name = nameInput.value.trim();
         const jobTitle = jobTitleInput.value.trim();
+        const imageSrc = imagePreview.src;
 
         if (!name || !jobTitle) {
-            alert('Please enter both a name and a job title!');
+            alert('Please fill in both name and job title!');
             return;
         }
 
-        // Create the account
+        // Create account node
         const account = document.createElement('div');
         account.classList.add('account');
 
-        // Add the avatar image
         const img = document.createElement('img');
-        img.src = avatarImage;
+        img.src = imageSrc;
         account.appendChild(img);
 
-        // Add the name and job title
         const textContainer = document.createElement('div');
         textContainer.classList.add('text-container');
 
@@ -48,13 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
         textContainer.appendChild(jobTitleElement);
 
         account.appendChild(textContainer);
-
-        // Add the account to the container
         accountsContainer.appendChild(account);
 
-        // Clear inputs and hide the form
+        // Reset modal fields
         nameInput.value = '';
         jobTitleInput.value = '';
-        formContainer.classList.add('hidden');
+        imagePreview.src = 'img/placeholder.jpg';
+        modal.classList.add('hidden');
     });
 });
