@@ -9,16 +9,28 @@
 <body>
     <div id="app">
         <h1>Social Map</h1>
-        <button id="create-account-btn">Create Account</button>
-        
-        <!-- Form to input name and job title -->
-        <div id="form-container" class="hidden">
-            <input type="text" id="name-input" placeholder="Enter your name" />
-            <input type="text" id="job-title-input" placeholder="Enter your job title" />
-            <button id="submit-btn">Submit</button>
-        </div>
-
         <div id="accounts-container"></div>
+    </div>
+
+    <!-- Modal for creating an account -->
+    <div id="modal" class="hidden">
+        <div class="modal-content">
+            <h2>Create Account</h2>
+            <label for="name-input">Name:</label>
+            <input type="text" id="name-input" placeholder="Enter your name" />
+            
+            <label for="job-title-input">Job Title:</label>
+            <input type="text" id="job-title-input" placeholder="Enter your job title" />
+            
+            <label for="image-upload">Upload Image or Generate:</label>
+            <input type="file" id="image-upload" accept="image/*" />
+            <input type="text" id="image-description" placeholder="Or describe an image to generate" />
+            
+            <button id="generate-image-btn">Generate Image</button>
+            <img id="image-preview" src="img/placeholder.jpg" alt="Preview" />
+            
+            <button id="confirm-btn">OK</button>
+        </div>
     </div>
     <script src="js/script.js"></script>
 </body>
